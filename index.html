@@ -17,6 +17,8 @@
         <title></title>
     </head>
     <body>
+        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -31,8 +33,6 @@
         <script src="data/paved_1.js"></script>
         <script src="data/Lanes_2.js"></script>
         <script src="data/Unpaved_3.js"></script>
-        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
