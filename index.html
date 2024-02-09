@@ -8,6 +8,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/Control.FullScreen.css" />
         <style>
         #map {
             width: 380px;
@@ -15,11 +16,6 @@
         }
         </style>
         <title></title>
-        <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
-        <link
-          href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"
-          rel="stylesheet"
-        />
     </head>
     <body>
         <div id="map">
@@ -33,13 +29,37 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/Control.FullScreen.js"></script>
         <script src="data/paved_1.js"></script>
         <script src="data/Lanes_2.js"></script>
         <script src="data/Unpaved_3.js"></script>
         <script>
         var map = L.map('map', {
-            zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[42.9,-73.85],[43.1,-73.72]]);
+            zoomControl:true, 
+            maxZoom:28, 
+            minZoom:1,
+            center: new L.LatLng(43.0, -73.8),
+            fullscreenControl: true,
+            fullscreenControlOptions: {
+                // optional
+                title: 'Show me the fullscreen !',
+                titleCancel: 'Exit fullscreen mode'
+            }
+        });
+
+        // detect fullscreen toggling
+        map.on('enterFullscreen', function () {
+            if (window.console) window.console.log('enterFullscreen');
+        });
+        map.on('exitFullscreen', function () {
+            if (window.console) window.console.log('exitFullscreen');
+        });
+
+        // toggler into fullscreen mode
+        const toggleFullscreen = function () {
+            map.toggleFullscreen();
+        };
+
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -195,7 +215,7 @@
         });
         bounds_group.addLayer(layer_Unpaved_3);
         map.addLayer(layer_Unpaved_3);
-        setBounds();
+        // setBounds();
         </script>
     </body>
 </html>
