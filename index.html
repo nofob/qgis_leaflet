@@ -22,6 +22,8 @@
         </div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -30,9 +32,12 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/Control.FullScreen.js"></script>
-        <script src="data/paved_1.js"></script>
-        <script src="data/Lanes_2.js"></script>
-        <script src="data/Unpaved_3.js"></script>
+        <script src="data/GreyGhostBicycles_1.js"></script>
+        <script src="data/TrekBicycles_2.js"></script>
+        <script src="data/BikeatogaWorkshop_3.js"></script>
+        <script src="data/Lanes_4.js"></script>
+        <script src="data/Unpaved_5.js"></script>
+        <script src="data/paved_6.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, 
@@ -59,7 +64,6 @@
         const toggleFullscreen = function () {
             map.toggleFullscreen();
         };
-
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -92,13 +96,10 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_paved_1(feature, layer) {
+        function pop_GreyGhostBicycles_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Downtown Connector'] !== null ? autolinker.link(feature.properties['Downtown Connector'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -108,34 +109,65 @@
             popup.setContent(updatedContent);
         }
 
-        function style_paved_1_0() {
+        function style_GreyGhostBicycles_1_0() {
             return {
-                pane: 'pane_paved_1',
+                pane: 'pane_GreyGhostBicycles_1',
+                radius: 8.0,
                 opacity: 1,
-                color: 'rgba(0,3,225,0.8509803921568627)',
+                color: 'rgba(184,8,8,1.0)',
                 dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(184,8,8,1.0)',
                 interactive: true,
             }
         }
-        map.createPane('pane_paved_1');
-        map.getPane('pane_paved_1').style.zIndex = 401;
-        map.getPane('pane_paved_1').style['mix-blend-mode'] = 'normal';
-        var layer_paved_1 = new L.geoJson(json_paved_1, {
+        function style_GreyGhostBicycles_1_1() {
+            return {
+                pane: 'pane_GreyGhostBicycles_1',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(255,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_GreyGhostBicycles_1');
+        map.getPane('pane_GreyGhostBicycles_1').style.zIndex = 401;
+        map.getPane('pane_GreyGhostBicycles_1').style['mix-blend-mode'] = 'normal';
+        var layer_GreyGhostBicycles_1 = new L.geoJson.multiStyle(json_GreyGhostBicycles_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_paved_1',
-            layerName: 'layer_paved_1',
-            pane: 'pane_paved_1',
-            onEachFeature: pop_paved_1,
-            style: style_paved_1_0,
-        });
-        bounds_group.addLayer(layer_paved_1);
-        map.addLayer(layer_paved_1);
-        function pop_Lanes_2(feature, layer) {
+            dataVar: 'json_GreyGhostBicycles_1',
+            layerName: 'layer_GreyGhostBicycles_1',
+            pane: 'pane_GreyGhostBicycles_1',
+            onEachFeature: pop_GreyGhostBicycles_1,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_GreyGhostBicycles_1_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_GreyGhostBicycles_1_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_GreyGhostBicycles_1);
+        map.addLayer(layer_GreyGhostBicycles_1);
+        function pop_TrekBicycles_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
@@ -148,34 +180,176 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Lanes_2_0() {
+        function style_TrekBicycles_2_0() {
             return {
-                pane: 'pane_Lanes_2',
+                pane: 'pane_TrekBicycles_2',
+                radius: 8.0,
                 opacity: 1,
-                color: 'rgba(134,0,155,0.792156862745098)',
+                color: 'rgba(184,8,8,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(184,8,8,1.0)',
+                interactive: true,
+            }
+        }
+        function style_TrekBicycles_2_1() {
+            return {
+                pane: 'pane_TrekBicycles_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(255,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_TrekBicycles_2');
+        map.getPane('pane_TrekBicycles_2').style.zIndex = 402;
+        map.getPane('pane_TrekBicycles_2').style['mix-blend-mode'] = 'normal';
+        var layer_TrekBicycles_2 = new L.geoJson.multiStyle(json_TrekBicycles_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TrekBicycles_2',
+            layerName: 'layer_TrekBicycles_2',
+            pane: 'pane_TrekBicycles_2',
+            onEachFeature: pop_TrekBicycles_2,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_TrekBicycles_2_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_TrekBicycles_2_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_TrekBicycles_2);
+        map.addLayer(layer_TrekBicycles_2);
+        function pop_BikeatogaWorkshop_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_BikeatogaWorkshop_3_0() {
+            return {
+                pane: 'pane_BikeatogaWorkshop_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(184,8,8,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(184,8,8,1.0)',
+                interactive: true,
+            }
+        }
+        function style_BikeatogaWorkshop_3_1() {
+            return {
+                pane: 'pane_BikeatogaWorkshop_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(255,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BikeatogaWorkshop_3');
+        map.getPane('pane_BikeatogaWorkshop_3').style.zIndex = 403;
+        map.getPane('pane_BikeatogaWorkshop_3').style['mix-blend-mode'] = 'normal';
+        var layer_BikeatogaWorkshop_3 = new L.geoJson.multiStyle(json_BikeatogaWorkshop_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BikeatogaWorkshop_3',
+            layerName: 'layer_BikeatogaWorkshop_3',
+            pane: 'pane_BikeatogaWorkshop_3',
+            onEachFeature: pop_BikeatogaWorkshop_3,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_BikeatogaWorkshop_3_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_BikeatogaWorkshop_3_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_BikeatogaWorkshop_3);
+        map.addLayer(layer_BikeatogaWorkshop_3);
+        function pop_Lanes_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Lanes_4_0() {
+            return {
+                pane: 'pane_Lanes_4',
+                opacity: 1,
+                color: 'rgba(173,0,204,0.8509803921568627)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
-        map.createPane('pane_Lanes_2');
-        map.getPane('pane_Lanes_2').style.zIndex = 402;
-        map.getPane('pane_Lanes_2').style['mix-blend-mode'] = 'normal';
-        var layer_Lanes_2 = new L.geoJson(json_Lanes_2, {
+        map.createPane('pane_Lanes_4');
+        map.getPane('pane_Lanes_4').style.zIndex = 404;
+        map.getPane('pane_Lanes_4').style['mix-blend-mode'] = 'normal';
+        var layer_Lanes_4 = new L.geoJson(json_Lanes_4, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_Lanes_2',
-            layerName: 'layer_Lanes_2',
-            pane: 'pane_Lanes_2',
-            onEachFeature: pop_Lanes_2,
-            style: style_Lanes_2_0,
+            interactive: false,
+            dataVar: 'json_Lanes_4',
+            layerName: 'layer_Lanes_4',
+            pane: 'pane_Lanes_4',
+            onEachFeature: pop_Lanes_4,
+            style: style_Lanes_4_0,
         });
-        bounds_group.addLayer(layer_Lanes_2);
-        map.addLayer(layer_Lanes_2);
-        function pop_Unpaved_3(feature, layer) {
+        bounds_group.addLayer(layer_Lanes_4);
+        map.addLayer(layer_Lanes_4);
+        function pop_Unpaved_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
@@ -188,34 +362,77 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Unpaved_3_0() {
+        function style_Unpaved_5_0() {
             return {
-                pane: 'pane_Unpaved_3',
+                pane: 'pane_Unpaved_5',
                 opacity: 1,
-                color: 'rgba(13,216,2,1.0)',
+                color: 'rgba(13,211,1,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
-        map.createPane('pane_Unpaved_3');
-        map.getPane('pane_Unpaved_3').style.zIndex = 403;
-        map.getPane('pane_Unpaved_3').style['mix-blend-mode'] = 'normal';
-        var layer_Unpaved_3 = new L.geoJson(json_Unpaved_3, {
+        map.createPane('pane_Unpaved_5');
+        map.getPane('pane_Unpaved_5').style.zIndex = 405;
+        map.getPane('pane_Unpaved_5').style['mix-blend-mode'] = 'normal';
+        var layer_Unpaved_5 = new L.geoJson(json_Unpaved_5, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_Unpaved_3',
-            layerName: 'layer_Unpaved_3',
-            pane: 'pane_Unpaved_3',
-            onEachFeature: pop_Unpaved_3,
-            style: style_Unpaved_3_0,
+            interactive: false,
+            dataVar: 'json_Unpaved_5',
+            layerName: 'layer_Unpaved_5',
+            pane: 'pane_Unpaved_5',
+            onEachFeature: pop_Unpaved_5,
+            style: style_Unpaved_5_0,
         });
-        bounds_group.addLayer(layer_Unpaved_3);
-        map.addLayer(layer_Unpaved_3);
-        // setBounds();
+        bounds_group.addLayer(layer_Unpaved_5);
+        map.addLayer(layer_Unpaved_5);
+        function pop_paved_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Paved Paths'] !== null ? autolinker.link(feature.properties['Paved Paths'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_paved_6_0() {
+            return {
+                pane: 'pane_paved_6',
+                opacity: 1,
+                color: 'rgba(34,69,225,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_paved_6');
+        map.getPane('pane_paved_6').style.zIndex = 406;
+        map.getPane('pane_paved_6').style['mix-blend-mode'] = 'normal';
+        var layer_paved_6 = new L.geoJson(json_paved_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_paved_6',
+            layerName: 'layer_paved_6',
+            pane: 'pane_paved_6',
+            onEachFeature: pop_paved_6,
+            style: style_paved_6_0,
+        });
+        bounds_group.addLayer(layer_paved_6);
+        map.addLayer(layer_paved_6);
+        setBounds();
         </script>
     </body>
 </html>
